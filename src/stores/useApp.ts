@@ -37,6 +37,7 @@ const useApp = create<useAppType>((set) => ({
     try {
       const res = await axios.post("/api/login", formData);
       if (res.status === 200) {
+        set({ user: res.data });
         toast.success("Logged In");
       }
     } catch (error) {
@@ -48,6 +49,17 @@ const useApp = create<useAppType>((set) => ({
       } else {
         toast.error("An unexpected error occurred.");
       }
+    }
+  },
+  logout: async () => {
+    try {
+      const res = await axios.post("/api/logout", {});
+      if (res.status === 200) {
+        set({ user: null });
+        toast.success("Logged Out");
+      }
+    } catch (error) {
+      toast.error("Failed to logout");
     }
   },
 }));

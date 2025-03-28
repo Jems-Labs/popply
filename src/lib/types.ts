@@ -16,4 +16,5 @@ export type useAppType = {
   fetchUser: () => void;
   signup: (fromData: signupType) => void;
   login: (formData: loginType) => void;
+  logout: () => void;
 };
