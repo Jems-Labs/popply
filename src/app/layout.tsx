@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fredoka } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "@/components/ui/sonner";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -18,12 +19,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className="dark">
 
-      <body className={`${fredoka.variable}`}>
+
+      <body className={`${fredoka.variable} font-fredoka`}>
         <Navbar />
         {children}
+        <Toaster position="top-center"/>
       </body>
     </html>
   );

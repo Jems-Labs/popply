@@ -1,42 +1,69 @@
-
+"use client";
 import { Button } from "@/components/ui/button";
-import { auth, signIn } from "@/lib/auth";
-import Image from "next/image";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import useApp from "@/stores/useApp";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-async function Login() {
-  const session = await auth();
-  if(session){
-    redirect("/")
-  }
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+function Login() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
+  const { login, user } = useApp();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await login(formData);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/")
+    }
+  }, [user]);
   return (
     <div className="border rounded-xl p-6 w-96 mx-auto mt-10 shadow-lg">
-      <h1 className="text-[#585858] text-center text-xl">Welcome Back!</h1>
       <h1 className="text-2xl mb-6 text-center">Login to your account</h1>
-
-      <form action={async () => {
-        "use server"
-        await signIn("google");
-      }}>
-        <Button className="w-full flex items-center justify-center gap-2  borderrounded-lg py-2">
-          <Image
-            src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-            alt="Google Logo"
-            width={24} 
-            height={24}
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+        <div>
+          <Label>Email</Label>
+          <Input
+            type="email"
+            placeholder="eg. johndoe@email.com"
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
           />
-          Continue with Google
-        </Button>
+        </div>
+        <div>
+          <Label>Password</Label>
+          <Input
+            type="password"
+            placeholder="*****"
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+          />
+        </div>
+        <Button type="submit" disabled={isLoading}>{isLoading ? "loading...." : "Login"}</Button>
       </form>
-
       <p className="text-center text-sm text-gray-400 mt-4">
         Don't have an account?{" "}
-        <Link href="/signup" className="text-blue-500 underline hover:text-blue-700">
+        <Link
+          href="/signup"
+          className="text-blue-500 underline hover:text-blue-700"
+        >
           Signup
         </Link>
       </p>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

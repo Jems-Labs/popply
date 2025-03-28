@@ -8,8 +8,28 @@ datasource db {
 }
 
 model User {
-  id    String     @id @default(cuid())
+  id    Int  @id @default(autoincrement())
   email String  @unique
   image String?
+  password String
   name  String
+  shops Shop[]
+}
+
+model Shop {
+  id          Int        @id @default(autoincrement())
+  ownerId     Int
+  owner       User       @relation(fields: [ownerId], references: [id])
+  name        String
+  description String     @db.Text
+  logo        String?
+  banner      String?
+  category    String
+  uniqueUrl   String
+  status      ShopStatus @default(INACTIVE)
+}
+
+enum ShopStatus {
+  ACTIVE
+  INACTIVE
 }
