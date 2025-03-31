@@ -8,12 +8,12 @@ datasource db {
 }
 
 model User {
-  id    Int  @id @default(autoincrement())
-  email String  @unique
-  image String?
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  image    String?
   password String
-  name  String
-  shops Shop[]
+  name     String
+  shops    Shop[]
 }
 
 model Shop {
@@ -25,7 +25,7 @@ model Shop {
   logo        String?
   banner      String?
   category    String
-  uniqueUrl   String
+  uniqueUrl   String     @unique
   status      ShopStatus @default(INACTIVE)
 }
 

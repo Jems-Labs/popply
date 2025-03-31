@@ -11,10 +11,16 @@ export type loginType = {
   email: string;
   password: string;
 };
+
+export type createShopResponse = {
+  id: number;
+  uniqueUrl: string;
+}
 export type useAppType = {
   user: User | null;
   fetchUser: () => void;
   signup: (fromData: signupType) => void;
   login: (formData: loginType) => void;
   logout: () => void;
+  createShop: (formData: FormData) => Promise<createShopResponse>;
 };

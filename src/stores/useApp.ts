@@ -62,5 +62,16 @@ const useApp = create<useAppType>((set) => ({
       toast.error("Failed to logout");
     }
   },
+  createShop: async (formData)=>{
+    try {
+      const res = await axios.post("/api/shop", formData);
+      if(res.status === 200){
+        toast.success("Saved")
+        return res.data;
+      }
+    } catch (error) {
+      toast.success('Failed to save')
+    }
+  }
 }));
 export default useApp;
