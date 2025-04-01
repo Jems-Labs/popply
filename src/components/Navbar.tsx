@@ -10,7 +10,7 @@ import {
   Store,
   Compass,
   ChevronDown,
-  Ticket,
+  Plus,
 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import useApp from "@/stores/useApp";
@@ -72,7 +72,7 @@ function Navbar() {
           <>
             <Link href={'/newshop'}>
               <Button>
-                <Store />
+                <Plus />
                 <span>New Shop</span>
               </Button>
             </Link>

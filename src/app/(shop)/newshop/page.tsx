@@ -84,7 +84,7 @@ function Newshop() {
         if (bannerFile) data.append("banner", bannerFile);
         setIsLoading(true);
         const res = await createShop(data)
-        router.push(`/s/${res.uniqueUrl}`);
+        router.push(`/s/${res.uniqueUrl}/dashboard`);
         setIsLoading(false)
     };
 
@@ -92,7 +92,7 @@ function Newshop() {
         <div>
             <div className="py-20 px-10 relative">
                 <div className="flex gap-4 items-center">
-                    <Button>
+                    <Button onClick={() => router.back()}>
                         <ArrowLeft />
                     </Button>
                     <p className="font-semibold text-2xl">New Popup Shop</p>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "sonner";
 const useApp = create<useAppType>((set) => ({
   user: null,
+  myShops: [],
   fetchUser: async () => {
     try {
       const res = await axios.get("/api/user");
@@ -62,16 +63,26 @@ const useApp = create<useAppType>((set) => ({
       toast.error("Failed to logout");
     }
   },
-  createShop: async (formData)=>{
+  createShop: async (formData) => {
     try {
       const res = await axios.post("/api/shop", formData);
-      if(res.status === 200){
-        toast.success("Saved")
+      if (res.status === 200) {
+        toast.success("Saved");
         return res.data;
       }
     } catch (error) {
-      toast.success('Failed to save')
+      toast.success("Failed to save");
     }
-  }
+  },
+  fetchMyShops: async () => {
+    try {
+      const res = await axios.get("/api/my-shops");
+      if (res.status === 200) {
+        set({myShops: res.data})
+      }
+    } catch (error) {
+      set({myShops: []})
+    }
+  },
 }));
 export default useApp;
