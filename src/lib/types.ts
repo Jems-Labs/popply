@@ -28,6 +28,12 @@ export type ShopType = {
   uniqueUrl: string;
   status: string;
 };
+
+export type updateShop = {
+  name: string,
+  description: string,
+  category: string
+}
 export type useAppType = {
   user: User | null;
   myShops: ShopType[] | []
@@ -37,5 +43,6 @@ export type useAppType = {
   logout: () => void;
   createShop: (formData: FormData) => Promise<createShopResponse>;
   fetchMyShops: () => void;
-  fetchShop: (url: string) => Promise<ShopType>
+  fetchShop: (url: string) => Promise<ShopType>;
+  updateShop: (url: string, formData: updateShop) => void;
 };

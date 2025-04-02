@@ -94,5 +94,15 @@ const useApp = create<useAppType>((set) => ({
       return null;
     }
   },
+  updateShop: async (url, formData) => {
+    try {
+      const res = await axios.put(`/api/shop/manage?url=${url}`, formData);
+      if (res.status === 200) {
+        toast.success(res.data.msg);
+      }
+    } catch (error) {
+      toast.error("Failed to update shop");
+    }
+  },
 }));
 export default useApp;
