@@ -78,10 +78,20 @@ const useApp = create<useAppType>((set) => ({
     try {
       const res = await axios.get("/api/my-shops");
       if (res.status === 200) {
-        set({myShops: res.data})
+        set({ myShops: res.data });
       }
     } catch (error) {
-      set({myShops: []})
+      set({ myShops: [] });
+    }
+  },
+  fetchShop: async (url) => {
+    try {
+      const res = await axios.get(`/api/shop/manage?url=${url}`);
+      if (res.status === 200) {
+        return res.data;
+      }
+    } catch (error) {
+      return null;
     }
   },
 }));

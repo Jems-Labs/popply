@@ -26,9 +26,7 @@ function MyShops() {
 
                 {myShops.map((shop, index) => {
                     return (
-                        <>
-                            <Shop logo={shop?.logo} name={shop?.name} uniqueUrl={shop?.uniqueUrl} key={index} category={shop?.category} />
-                        </>
+                        <Shop logo={shop?.logo} name={shop?.name} uniqueUrl={shop?.uniqueUrl} key={index} category={shop?.category} />
                     )
                 })}
             </div>

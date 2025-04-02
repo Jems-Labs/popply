@@ -37,4 +37,5 @@ export type useAppType = {
   logout: () => void;
   createShop: (formData: FormData) => Promise<createShopResponse>;
   fetchMyShops: () => void;
+  fetchShop: (url: string) => Promise<ShopType>
 };

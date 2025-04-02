@@ -29,6 +29,13 @@ export async function POST(req: Request) {
     if (!validatedData.success) {
       return NextResponse.json({ msg: "Invalid Inputs" }, { status: 400 });
     }
+
+    const shopExists = await prisma.shop.findUnique({
+      where: {uniqueUrl}
+    });
+    if(shopExists){
+      return NextResponse.json({msg: "Shop already exists"}, {status: 400})
+    }
     let logoUrl = null, bannerUrl = null;
     if (logo) {
       logoUrl = await uploadToCloudinary(logo, "popply/shop/logos").catch(err => {
