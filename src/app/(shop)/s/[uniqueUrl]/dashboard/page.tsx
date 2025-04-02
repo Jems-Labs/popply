@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DashboardSidebar from './_components/DashboardSidebar';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ExternalLink, Link2, Trash } from 'lucide-react';
@@ -9,11 +9,12 @@ import Dashboard from './_components/Dashboard';
 import Analytics from './_components/Analytics';
 import Products from './_components/Products';
 import Shop from './_components/Shop';
+import useApp from '@/stores/useApp';
 
 function DashboardPage() {
-    const { uniqueUrl } = useParams();
+    const { uniqueUrl }: { uniqueUrl: string } = useParams();
     const [tab, setTab] = useState("dashboard");
-
+    const { fetchManageShop, user } = useApp();
     const renderComponent = () => {
         switch (tab) {
             case "dashboard":
@@ -29,6 +30,10 @@ function DashboardPage() {
         }
     };
 
+
+    useEffect(() => {
+        fetchManageShop(uniqueUrl)
+    }, [fetchManageShop, user])
     return (
         <div className='py-20 px-10'>
             <div className='flex justify-between items-center'>

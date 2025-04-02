@@ -26,23 +26,37 @@ export type ShopType = {
   banner: string;
   category: string;
   uniqueUrl: string;
-  status: string;
 };
 
 export type updateShop = {
-  name: string,
-  description: string,
-  category: string
-}
+  name: string;
+  description: string;
+  category: string;
+};
+
+export type productType = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  shopId: number;
+  shop: ShopType;
+  image: string;
+  productUrl: string;
+};
 export type useAppType = {
   user: User | null;
-  myShops: ShopType[] | []
+  myShops: ShopType[] | [];
+  manageshop: ShopType | null;
   fetchUser: () => void;
   signup: (fromData: signupType) => void;
   login: (formData: loginType) => void;
   logout: () => void;
   createShop: (formData: FormData) => Promise<createShopResponse>;
   fetchMyShops: () => void;
-  fetchShop: (url: string) => Promise<ShopType>;
+  fetchManageShop: (url: string) => void;
   updateShop: (url: string, formData: updateShop) => void;
+  addProduct: (id: number | undefined, formData: FormData) => void;
+  fetchProducts: (id: number) => Promise<productType[] | []>;
+  deleteProduct: (id: number) => void;
 };

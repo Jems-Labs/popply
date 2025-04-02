@@ -39,13 +39,11 @@ export async function POST(req: Request) {
     let logoUrl = null, bannerUrl = null;
     if (logo) {
       logoUrl = await uploadToCloudinary(logo, "popply/shop/logos").catch(err => {
-        console.error("Failed to upload logo:", err);
         return null;
       });
     }
     if (banner) {
       bannerUrl = await uploadToCloudinary(banner, "popply/shop/banners").catch(err => {
-        console.error("Failed to upload banner:", err);
         return null;
       });
     }

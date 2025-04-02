@@ -4,36 +4,28 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { ShopCategories } from '@/lib/ShopCategories';
-import { ShopType } from '@/lib/types';
 import useApp from '@/stores/useApp';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 function Shop() {
   const { uniqueUrl } = useParams() as { uniqueUrl: string };
-  const { fetchShop, updateShop } = useApp();
+  const { manageshop, updateShop } = useApp();
   const [isLoading, setIsLoading] = useState(false);
-  const [shop, setShop] = useState<ShopType | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     category: "",
   });
-
   useEffect(() => {
-    async function getShop() {
-      const res = await fetchShop(uniqueUrl);
-      setShop(res);
+    if (manageshop) {
       setFormData({
-        name: res?.name || "",
-        description: res?.description || "",
-        category: res?.category || "",
+        name: manageshop.name || "",
+        description: manageshop.description || "",
+        category: manageshop.category || "",
       });
     }
-    if (uniqueUrl) {
-      getShop();
-    }
-  }, [uniqueUrl, fetchShop]);
+  }, [manageshop]);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -74,7 +66,7 @@ function Shop() {
             <Input
               id="uniqueUrl"
               name="uniqueUrl"
-              value={shop?.uniqueUrl}
+              value={manageshop?.uniqueUrl}
               className="rounded-l-none w-80"
               placeholder="my-shop"
               disabled />

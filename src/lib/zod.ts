@@ -33,3 +33,11 @@ export const updateShopSchema = z.object({
   description: z.string().min(1, "Description is required"),
   category: z.string(),
 });
+
+export const addProductSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  price: z.number(),
+  productUrl: z.string(),
+  image: z.any()
+})

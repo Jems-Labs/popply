@@ -29,3 +29,11 @@ export async function uploadToCloudinary(file: File, folderName: string): Promis
     }
   });
 }
+export async function deleteFromCloudinary(publicId: string): Promise<boolean> {
+  try {
+    const result = await cloudinary.uploader.destroy(publicId);
+    return result.result === "ok";
+  } catch (error) {
+    return false;
+  }
+}

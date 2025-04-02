@@ -5,6 +5,7 @@ import { toast } from "sonner";
 const useApp = create<useAppType>((set) => ({
   user: null,
   myShops: [],
+  manageshop: null,
   fetchUser: async () => {
     try {
       const res = await axios.get("/api/user");
@@ -84,14 +85,14 @@ const useApp = create<useAppType>((set) => ({
       set({ myShops: [] });
     }
   },
-  fetchShop: async (url) => {
+  fetchManageShop: async (url) => {
     try {
       const res = await axios.get(`/api/shop/manage?url=${url}`);
       if (res.status === 200) {
-        return res.data;
+        set({ manageshop: res.data });
       }
     } catch (error) {
-      return null;
+      set({ manageshop: null });
     }
   },
   updateShop: async (url, formData) => {
@@ -104,5 +105,35 @@ const useApp = create<useAppType>((set) => ({
       toast.error("Failed to update shop");
     }
   },
+  addProduct: async (id, formData) => {
+    try {
+      const res = await axios.post(`/api/product?id=${id}`, formData);
+      if (res.status === 200) {
+        toast.success("Product Added");
+      }
+    } catch (error) {
+      toast.error("Failed to add product");
+    }
+  },
+  fetchProducts: async (id) => {
+    try {
+      const res = await axios.get(`/api/shop/products?id=${id}`);
+      if (res.status === 200) {
+        return res.data || [];
+      }
+    } catch (error) {
+      return [];
+    }
+  },
+  deleteProduct: async (id) => {
+    try {
+      const res = await axios.delete(`/api/product?id=${id}`);
+      if(res.status === 200){
+        toast.success(res.data.msg)
+      }
+    } catch (error) {
+      toast.error("Failed to delete product")
+    }
+  }
 }));
 export default useApp;

@@ -17,19 +17,25 @@ model User {
 }
 
 model Shop {
-  id          Int        @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   ownerId     Int
-  owner       User       @relation(fields: [ownerId], references: [id])
+  owner       User      @relation(fields: [ownerId], references: [id])
   name        String
-  description String     @db.Text
+  description String    @db.Text
   logo        String?
   banner      String?
   category    String
-  uniqueUrl   String     @unique
-  status      ShopStatus @default(INACTIVE)
+  uniqueUrl   String    @unique
+  products    Product[]
 }
 
-enum ShopStatus {
-  ACTIVE
-  INACTIVE
+model Product {
+  id          Int    @id @default(autoincrement())
+  shopId      Int
+  shop        Shop   @relation(fields: [shopId], references: [id])
+  name        String
+  description String @db.Text
+  price       Float  @default(0.0)
+  image       String
+  productUrl  String
 }
