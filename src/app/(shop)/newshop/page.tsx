@@ -18,6 +18,7 @@ import { ShopCategories } from "@/lib/ShopCategories";
 import useApp from "@/stores/useApp";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Separator } from "@/components/ui/separator";
 
 function Newshop() {
     const logoInputRef = useRef<HTMLInputElement>(null);
@@ -174,10 +175,11 @@ function Newshop() {
                         </div>
                     </div>
                 </form>
+                <Separator />
+                <Button onClick={handleSubmit} disabled={isLoading} className="my-5">{isLoading ? "saving...." : "Save Shop"}</Button>
             </div>
-            <div className="fixed bottom-0 left-0 right-0 border-t py-4 px-5 z-50 bg-black flex justify-end">
-                <Button onClick={handleSubmit} disabled={isLoading}>{isLoading ? "saving...." : "Save"}</Button>
-            </div>
+            
+                
         </div>
     );
 }

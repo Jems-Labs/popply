@@ -3,6 +3,7 @@ import { ArrowBigUp, Eye, MousePointerClick } from 'lucide-react'
 import React from 'react'
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { format } from "date-fns"
+import Link from 'next/link'
 
 function Analytics() {
   const { manageshop } = useApp()
@@ -14,7 +15,7 @@ function Analytics() {
   return (
     <div className="p-6 space-y-6">
 
- 
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
 
         <div className="border rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
@@ -57,30 +58,29 @@ function Analytics() {
             <p className="text-gray-500 text-sm">No viewers yet.</p>
           ) : (
             views.map((view) => (
+              <Link href={`/u/${view?.id}`} key={view.id} className='cursor-pointer'>
+                <div
+                  className="flex items-center justify-between border rounded-xl p-4 shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarFallback>
+                        {view.user.name?.charAt(0) || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
 
-              <div
-                key={view.id}
-                className="flex items-center justify-between border rounded-xl p-4 shadow-sm">
-                <div className="flex items-center gap-4">
-                  <Avatar>
-                    <AvatarFallback>
-                      {view.user.name?.charAt(0) || 'U'}
-                    </AvatarFallback>
-                  </Avatar>
+                    <div>
+                      <p className="font-medium hover:underline">{view.user.name}</p>
+                      <p className="text-sm text-gray-500">{view.user.email}</p>
+                    </div>
+                  </div>
 
-                  <div>
-                    <p className="font-medium">{view.user.name}</p>
-                    <p className="text-sm text-gray-500">{view.user.email}</p>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-400">
+                      Viewed on {format(new Date(view.createdAt), "PPP")}
+                    </p>
                   </div>
                 </div>
-
-                <div className="text-right">
-                  <p className="text-sm text-gray-400">
-                    Viewed on {format(new Date(view.createdAt), "PPP")}
-                  </p>
-                </div>
-              </div>
-
+              </Link>
             ))
           )}
         </div>

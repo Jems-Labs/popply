@@ -7,12 +7,8 @@ import ProfilePopover from "./ProfilePopover";
 import {
   House,
   Rocket,
-  Store,
-  Compass,
-  ChevronDown,
   Plus,
 } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import useApp from "@/stores/useApp";
 import { useEffect } from "react";
 
@@ -44,27 +40,6 @@ function Navbar() {
             <Rocket className="w-5 h-5" />
             <span>Pop Mart</span>
           </Link>
-          <Popover>
-            <PopoverTrigger asChild>
-              <li className="px-5 py-3 text-[15px] flex items-center gap-3 cursor-pointer">
-                <Compass className="w-5 h-5" />
-                <span className="flex items-center">
-                  Discover <ChevronDown className="w-5 h-5 ml-1" />
-                </span>
-              </li>
-            </PopoverTrigger>
-            <PopoverContent className="w-48 p-2">
-              <Link
-                href="/shops"
-                className="flex gap-3 px-4 py-2 hover:bg-secondary rounded text-[15px]"
-              >
-                <Store className="w-5 h-5" /> Shops
-              </Link>
-              {/* <Link href="/events" className="flex gap-3 px-4 py-2 hover:bg-secondary rounded text-[15px]">
-                <Ticket className="w-5 h-5" /> Events
-              </Link> */}
-            </PopoverContent>
-          </Popover>
         </ul>
       </div>
       <div className="flex items-center gap-2">

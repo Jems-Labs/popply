@@ -3,6 +3,11 @@ export type User = {
   name: string;
   email: string;
 };
+
+export type PublicUserType = {
+  shops: ShopType[];
+  viewShops: shopViewType[],
+} & User
 export type signupType = {
   name: string;
 } & loginType;
@@ -88,4 +93,5 @@ export type useAppType = {
   fetchShop: (url: string) => Promise<ShopType | null>;
   addComment: (data: { shopId: number | undefined; text: string }) => void;
   launchShop: (id: number | undefined) => void;
+  fetchPublicUser: (id: number) => Promise<PublicUserType>;
 };

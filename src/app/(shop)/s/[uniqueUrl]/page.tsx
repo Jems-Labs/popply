@@ -14,6 +14,8 @@ import { ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Comment from "@/components/Comment";
 import axios from "axios";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import Link from "next/link";
 
 function Shop() {
   const { uniqueUrl }: { uniqueUrl: string } = useParams();
@@ -83,39 +85,81 @@ function Shop() {
 
   return (
     <div className="py-20 px-5 flex flex-col">
-      <div className="p-3">
-        {data?.banner && (
-          <div className="relative w-[640px] h-[300px] rounded-lg overflow-hidden border shadow-lg">
-            <Image
-              src={data.banner}
-              alt="Shop Banner"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-black opacity-40"></div>
+      <div className="flex justify-between">
 
-            {data?.logo && (
-              <div className="absolute bottom-4 left-4">
-                <Image
-                  src={data.logo}
-                  alt="Shop Logo"
-                  width={80}
-                  height={80}
-                  className="rounded-lg border shadow-md"
-                />
+
+        <div className="p-3">
+          {data?.banner && (
+            <div className="relative w-[640px] h-[300px] rounded-lg overflow-hidden border shadow-lg">
+              <Image
+                src={data.banner}
+                alt="Shop Banner"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-black opacity-40"></div>
+
+              {data?.logo && (
+                <div className="absolute bottom-4 left-4">
+                  <Image
+                    src={data.logo}
+                    alt="Shop Logo"
+                    width={80}
+                    height={80}
+                    className="rounded-lg border shadow-md"
+                  />
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="px-4 py-5 break-words">
+            <div className="flex items-center justify-between">
+              <h1 className="font-semibold text-2xl">{data?.name}</h1>
+
+              <div className="mt-4">
+                <div
+                  className={`
+                          inline-block px-3 py-1 rounded-full text-xs font-medium
+                          ${data?.status === "open"
+                      ? "bg-green-500/10 text-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]"
+                      : data?.status === "expired"
+                        ? "bg-red-500/10 text-red-500"
+                        : "bg-yellow-500/10 text-yellow-500"
+                    }`}>
+                  {data?.status === "open"
+                    ? "Open"
+                    : data?.status === "expired"
+                      ? "Closed"
+                      : "Draft"}
+                </div>
               </div>
-            )}
+            </div>
+
+            <p className="text-gray-500 break-words">{data?.description}</p>
+
+            <div className="py-5">
+              <h1 className="text-sm text-gray-500">Shop By</h1>
+              <div className="border p-1 rounded-lg w-36">
+                <div className="flex items-center gap-2 cursor-pointer">
+                  <Avatar className="w-9 h-9">
+                    <AvatarFallback>{data?.owner.name[0]}</AvatarFallback>
+                  </Avatar>
+                  <Link href={`/u/${data?.owner.id}`}>
+                    <h1 className="text-sm underline">{data?.owner.name}</h1>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
-        <div className="px-4 py-5  break-words">
-          <h1 className="font-semibold text-2xl">{data?.name}</h1>
-          <p className="text-gray-500 break-words">{data?.description}</p>
         </div>
+
+        <div>asjdh</div>
       </div>
       <Tabs defaultValue="products" className="w-full py-5">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="products">Products</TabsTrigger>
-          <TabsTrigger value="comments">Comments</TabsTrigger>
+          <TabsTrigger value="products" className="text-xl">Products</TabsTrigger>
+          <TabsTrigger value="comments" className="text-xl">Comments</TabsTrigger>
         </TabsList>
         <TabsContent value="products">
           {data?.products && data?.products?.length > 0 ? (
@@ -131,7 +175,7 @@ function Shop() {
           )}
         </TabsContent>
         <TabsContent value="comments">
-          <div className="flex gap-2 py-4 items-center">
+          <div className="flex gap-2 py-4 items-center px-5">
             <Input type="text" placeholder="Share your feedback" className="py-5" onChange={(e) => setText(e.target.value)} />
             <Button onClick={handleAddComment} disabled={isAdding}>
               {isAdding ? (

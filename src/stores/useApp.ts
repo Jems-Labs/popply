@@ -147,23 +147,33 @@ const useApp = create<useAppType>((set) => ({
   addComment: async (data) => {
     try {
       const res = await axios.post("/api/shop/comment", data);
-    if(res.status === 200){
-      toast.success("Commented")
-    }
+      if (res.status === 200) {
+        toast.success("Commented");
+      }
     } catch (error) {
-      toast.error("Failed to add comment")
+      toast.error("Failed to add comment");
     }
   },
   launchShop: async (id) => {
     try {
       const res = await axios.put(`/api/launch?id=${id}`);
-      if(res.status === 200){
+      if (res.status === 200) {
         toast.success("Launched");
       }
     } catch (error) {
-      toast.error("Failed to launch this shop")
+      toast.error("Failed to launch this shop");
     }
-  }
+  },
+  fetchPublicUser: async (id) => {
+    try {
+      const res = await axios.get(`/api/get-user?id=${id}`);
 
+      if (res.status === 200) {
+        return res.data;
+      }
+    } catch (error) {
+      return null;
+    }
+  },
 }));
 export default useApp;
