@@ -4,7 +4,6 @@ import axios from "axios";
 import { toast } from "sonner";
 const useApp = create<useAppType>((set) => ({
   user: null,
-  myShops: [],
   manageshop: null,
   fetchUser: async () => {
     try {
@@ -79,10 +78,10 @@ const useApp = create<useAppType>((set) => ({
     try {
       const res = await axios.get("/api/my-shops");
       if (res.status === 200) {
-        set({ myShops: res.data });
+        return res.data || [];
       }
     } catch (error) {
-      set({ myShops: [] });
+      return [];
     }
   },
   fetchManageShop: async (url) => {
@@ -128,12 +127,33 @@ const useApp = create<useAppType>((set) => ({
   deleteProduct: async (id) => {
     try {
       const res = await axios.delete(`/api/product?id=${id}`);
-      if(res.status === 200){
-        toast.success(res.data.msg)
+      if (res.status === 200) {
+        toast.success(res.data.msg);
       }
     } catch (error) {
-      toast.error("Failed to delete product")
+      toast.error("Failed to delete product");
+    }
+  },
+  fetchShop: async (url) => {
+    try {
+      const res = await axios.get(`/api/shop?url=${url}`);
+      if (res.status === 200) {
+        return res.data || null;
+      }
+    } catch (error) {
+      return null;
+    }
+  },
+  addComment: async (data) => {
+    try {
+      const res = await axios.post("/api/shop/comment", data);
+    if(res.status === 200){
+      toast.success("Commented")
+    }
+    } catch (error) {
+      toast.error("Failed to add comment")
     }
   }
+
 }));
 export default useApp;

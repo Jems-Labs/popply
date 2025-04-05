@@ -3,6 +3,7 @@ import { Fredoka } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import QueryProvider from "@/components/QueryProvider";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -26,8 +27,10 @@ export default function RootLayout({
 
       <body className={`${fredoka.variable} font-fredoka`}>
         <Navbar />
-        {children}
-        <Toaster position="top-center"/>
+        <QueryProvider>
+          {children}
+        </QueryProvider>
+        <Toaster position="top-center" />
       </body>
     </html>
   );

@@ -41,3 +41,8 @@ export const addProductSchema = z.object({
   productUrl: z.string(),
   image: z.any()
 })
+
+export const addComment = z.object({
+  shopId: z.number(),
+  text: z.string()
+})

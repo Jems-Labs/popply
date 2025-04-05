@@ -31,28 +31,39 @@ export async function POST(req: Request) {
     }
 
     const shopExists = await prisma.shop.findUnique({
-      where: {uniqueUrl}
+      where: { uniqueUrl },
     });
-    if(shopExists){
-      return NextResponse.json({msg: "Shop already exists"}, {status: 400})
+    if (shopExists) {
+      return NextResponse.json({ msg: "Shop already exists" }, { status: 400 });
     }
-    let logoUrl = null, bannerUrl = null;
+    let logoUrl = null,
+      bannerUrl = null;
     if (logo) {
-      logoUrl = await uploadToCloudinary(logo, "popply/shop/logos").catch(err => {
-        return null;
-      });
+      logoUrl = await uploadToCloudinary(logo, "popply/shop/logos").catch(
+        (err) => {
+          return null;
+        }
+      );
     }
     if (banner) {
-      bannerUrl = await uploadToCloudinary(banner, "popply/shop/banners").catch(err => {
-        return null;
-      });
+      bannerUrl = await uploadToCloudinary(banner, "popply/shop/banners").catch(
+        (err) => {
+          return null;
+        }
+      );
     }
 
     if (logo && !logoUrl) {
-      return NextResponse.json({ msg: "Failed to upload logo" }, { status: 500 });
+      return NextResponse.json(
+        { msg: "Failed to upload logo" },
+        { status: 500 }
+      );
     }
     if (banner && !bannerUrl) {
-      return NextResponse.json({ msg: "Failed to upload banner" }, { status: 500 });
+      return NextResponse.json(
+        { msg: "Failed to upload banner" },
+        { status: 500 }
+      );
     }
     const newShop = await prisma.shop.create({
       data: {
@@ -62,13 +73,62 @@ export async function POST(req: Request) {
         ownerId: id,
         category,
         logo: logoUrl,
-        banner: bannerUrl
-      }
+        banner: bannerUrl,
+      },
     });
-    if(!newShop){
-      return NextResponse.json({msg: "Failed to create new shop"}, {status: 400})
+    if (!newShop) {
+      return NextResponse.json(
+        { msg: "Failed to create new shop" },
+        { status: 400 }
+      );
     }
-    return NextResponse.json({ id: newShop.id, uniqueUrl: newShop.uniqueUrl }, { status: 200 });
+    return NextResponse.json(
+      { id: newShop.id, uniqueUrl: newShop.uniqueUrl },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const shopUrl = searchParams.get("url");
+  try {
+    if (!shopUrl) {
+      return NextResponse.json(
+        { msg: "No shop url provided" },
+        { status: 400 }
+      );
+    }
+
+    const shop = await prisma.shop.findUnique({
+      where: {
+        uniqueUrl: shopUrl,
+      },
+      include: {
+        products: true,
+        owner: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        comments: {
+          include: {
+            shop: true,
+            user: true
+          }
+        }
+      },
+    });
+
+    if(!shop){
+      return NextResponse.json({msg: "No shop found"}, {status: 404})
+    };
+
+    return NextResponse.json(shop, {status: 200})
   } catch (error) {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }

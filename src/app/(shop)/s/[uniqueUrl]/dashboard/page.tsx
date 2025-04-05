@@ -10,7 +10,6 @@ import Analytics from './_components/Analytics';
 import Products from './_components/Products';
 import Shop from './_components/Shop';
 import useApp from '@/stores/useApp';
-
 function DashboardPage() {
     const { uniqueUrl }: { uniqueUrl: string } = useParams();
     const [tab, setTab] = useState("dashboard");

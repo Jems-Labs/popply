@@ -1,29 +1,33 @@
 import { Button } from '@/components/ui/button';
 import { Plus, Trash } from 'lucide-react';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import AddNewProduct from './AddNewProduct';
 import useApp from '@/stores/useApp';
 import { productType } from '@/lib/types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 
 
 function Products() {
   const [open, setOpen] = useState(false);
   const { manageshop, fetchProducts, deleteProduct } = useApp();
-  const [products, setProducts] = useState<productType[]>([]);
-  const router = useRouter()
-  useEffect(() => {
-    async function getProducts() {
-      if (manageshop?.id) {
-        const res = await fetchProducts(manageshop?.id);
-        setProducts(res);
-      }
-    }
-    getProducts();
-  }, []);
+
+  const {data: products, isLoading, refetch} = useQuery<productType[]>({
+    queryKey: ['products', manageshop?.id],
+    queryFn: async () => {
+      if(!manageshop?.id) return [];
+      const res = await fetchProducts(manageshop.id);
+      return res;
+    },
+    retry: 1,
+    staleTime: 1000 * 60 * 2, // stale for 2 minutes
+  })
+  const handleDelete = async (productId: number) => {
+    await deleteProduct(productId);
+    refetch(); 
+  };
 
   return (
     <div>
@@ -59,7 +63,7 @@ function Products() {
               <TableCell className="font-medium">{product.name}</TableCell>
               <TableCell className="font-semibold">{product.price}</TableCell>
               <TableCell>
-                <Button className='text-red-500' onClick={() => deleteProduct(product?.id)}><Trash /></Button>
+                <Button className='text-red-500' onClick={()=>handleDelete(product.id)}><Trash /></Button>
               </TableCell>
             </TableRow>
 
