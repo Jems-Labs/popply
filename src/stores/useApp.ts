@@ -153,6 +153,16 @@ const useApp = create<useAppType>((set) => ({
     } catch (error) {
       toast.error("Failed to add comment")
     }
+  },
+  launchShop: async (id) => {
+    try {
+      const res = await axios.put(`/api/launch?id=${id}`);
+      if(res.status === 200){
+        toast.success("Launched");
+      }
+    } catch (error) {
+      toast.error("Failed to launch this shop")
+    }
   }
 
 }));

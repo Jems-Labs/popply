@@ -5,15 +5,16 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, ExternalLink, Link2, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import Dashboard from './_components/Dashboard';
 import Analytics from './_components/Analytics';
 import Products from './_components/Products';
 import Shop from './_components/Shop';
 import useApp from '@/stores/useApp';
+import { toast } from 'sonner';
 function DashboardPage() {
     const { uniqueUrl }: { uniqueUrl: string } = useParams();
     const [tab, setTab] = useState("analytics");
-    const { fetchManageShop, user } = useApp();
+    const { fetchManageShop, user, launchShop, manageshop } = useApp();
+    const [isLoading, setIsLoading] = useState(false);
     const renderComponent = () => {
         switch (tab) {
             case "shop":
@@ -30,7 +31,22 @@ function DashboardPage() {
 
     useEffect(() => {
         fetchManageShop(uniqueUrl)
-    }, [fetchManageShop, user])
+    }, [fetchManageShop, user]);
+
+    const handleLaunchShop = async () => {
+        setIsLoading(true);
+        await launchShop(manageshop?.id);
+        setIsLoading(false)
+    }
+
+    const handleCopyLink = async () => {
+        try {
+            await navigator.clipboard.writeText(`${window.location.origin}/s/${manageshop?.uniqueUrl}`);
+            toast.success("Copied Link")
+        } catch (error) {
+            toast.error("Failed to copy link")
+        }
+    };
     return (
         <div className='py-20 px-10'>
             <div className='flex justify-between items-center'>
@@ -41,16 +57,23 @@ function DashboardPage() {
                     <p className="font-semibold text-2xl">Dashboard</p>
                 </div>
                 <div className='flex items-center gap-3'>
-                    <Button>Launch</Button>
+                    {manageshop?.status === "draft" &&
+                        <Button onClick={handleLaunchShop} disabled={isLoading}>
+                            {isLoading ? <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" /> : "Launch"}
+                        </Button>}
+                    {manageshop?.status === "open" && <Button disabled>Launched</Button>}
+                    {manageshop?.status === "expired" && <Button disabled>Closed</Button>}
+
+
                     <div className='flex items-center'>
                         <Link className='p-2 border' href={`/s/${uniqueUrl}`}>
                             <ExternalLink size={20} />
                         </Link>
-                        <div className='p-2 border'>
+                        <div className='p-2 border cursor-pointer' onClick={handleCopyLink}>
                             <Link2 size={20} />
                         </div>
-                        <div className='p-2 border'>
-                            <Trash size={20} />
+                        <div className='p-2 border cursor-pointer'>
+                            <Trash size={20} className='text-red-500' />
                         </div>
                     </div>
                 </div>

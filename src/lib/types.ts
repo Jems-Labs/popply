@@ -65,6 +65,9 @@ export type ShopType = {
   products: productType[];
   comments: commentType[];
   views: shopViewType[];
+  status: string;
+  launchDate: Date;
+  expiresAt: Date;
 };
 
 export type useAppType = {
@@ -84,4 +87,5 @@ export type useAppType = {
   deleteProduct: (id: number) => void;
   fetchShop: (url: string) => Promise<ShopType | null>;
   addComment: (data: { shopId: number | undefined; text: string }) => void;
+  launchShop: (id: number | undefined) => void;
 };

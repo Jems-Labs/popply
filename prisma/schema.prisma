@@ -31,6 +31,9 @@ model Shop {
   products    Product[]
   comments    Comment[]
   views       ShopView[]
+  status      ShopStatus @default(draft)
+  launchDate  DateTime?
+  expiresAt   DateTime?
 }
 
 model Product {
@@ -63,4 +66,10 @@ model ShopView {
   user      User     @relation(fields: [userId], references: [id])
   shop      Shop     @relation(fields: [shopId], references: [id])
   createdAt DateTime @default(now())
+}
+
+enum ShopStatus {
+  draft
+  open
+  expired
 }
