@@ -32,6 +32,7 @@ export type productType = {
   shop: ShopType;
   image: string;
   productUrl: string;
+  clicks: number;
 };
 export type commentType = {
   id: number;
@@ -41,6 +42,15 @@ export type commentType = {
   shop: ShopType;
   text: string;
   likes: number;
+};
+
+export type shopViewType = {
+  id: number;
+  userId: number;
+  shopId: number;
+  user: User;
+  shop: ShopType;
+  createdAt: Date;
 };
 export type ShopType = {
   id: number;
@@ -54,6 +64,7 @@ export type ShopType = {
   uniqueUrl: string;
   products: productType[];
   comments: commentType[];
+  views: shopViewType[];
 };
 
 export type useAppType = {

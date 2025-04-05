@@ -8,27 +8,29 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  image    String?
-  password String
-  name     String
-  shops    Shop[]
-  comments Comment[]
+  id          Int        @id @default(autoincrement())
+  email       String     @unique
+  image       String?
+  password    String
+  name        String
+  shops       Shop[]
+  comments    Comment[]
+  viewedShops ShopView[]
 }
 
 model Shop {
-  id          Int       @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   ownerId     Int
-  owner       User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   name        String
-  description String    @db.Text
+  description String     @db.Text
   logo        String?
   banner      String?
   category    String
-  uniqueUrl   String    @unique
+  uniqueUrl   String     @unique
   products    Product[]
   comments    Comment[]
+  views       ShopView[]
 }
 
 model Product {
@@ -40,6 +42,7 @@ model Product {
   price       Float  @default(0.0)
   image       String
   productUrl  String
+  clicks      Int    @default(0)
 }
 
 model Comment {
@@ -50,4 +53,14 @@ model Comment {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   likes  Int    @default(0)
   text   String
+}
+
+model ShopView {
+  id     Int @id @default(autoincrement())
+  userId Int
+  shopId Int
+
+  user      User     @relation(fields: [userId], references: [id])
+  shop      Shop     @relation(fields: [shopId], references: [id])
+  createdAt DateTime @default(now())
 }

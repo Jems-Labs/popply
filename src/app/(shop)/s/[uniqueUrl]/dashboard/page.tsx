@@ -12,12 +12,10 @@ import Shop from './_components/Shop';
 import useApp from '@/stores/useApp';
 function DashboardPage() {
     const { uniqueUrl }: { uniqueUrl: string } = useParams();
-    const [tab, setTab] = useState("dashboard");
+    const [tab, setTab] = useState("analytics");
     const { fetchManageShop, user } = useApp();
     const renderComponent = () => {
         switch (tab) {
-            case "dashboard":
-                return <Dashboard />;
             case "shop":
                 return <Shop />;
             case "products":
@@ -25,7 +23,7 @@ function DashboardPage() {
             case "analytics":
                 return <Analytics />;
             default:
-                return <Dashboard />;
+                return <Analytics />;
         }
     };
 

@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { productType } from "@/lib/types";
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "./ui/button";
+import axios from "axios";
 function Product({ product }: { product: productType }) {
     return (
         <Card className="border shadow-md w-80">
@@ -21,9 +21,19 @@ function Product({ product }: { product: productType }) {
                 <p className="text-gray-500 text-sm">{product.description}</p>
                 <div className="flex justify-between items-center">
                     <span className="font-bold text-lg">₹{product.price}</span>
-                    <Link href={product.productUrl} target="_blank">
-                        <Button size="sm">View Product</Button>
-                    </Link>
+                    <Button
+                        size="sm"
+                        onClick={async () => {
+                            try {
+                                await axios.put(`/api/product/clicks?id=${product.id}`)
+                                window.open(product.productUrl, "_blank")
+                            } catch (error) {
+                                window.open(product.productUrl, "_blank")
+                            }
+                        }}
+                    >
+                        View Product
+                    </Button>
                 </div>
             </CardContent>
         </Card>

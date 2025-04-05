@@ -3,8 +3,8 @@
 import useApp from "@/stores/useApp";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { useParams } from "next/navigation";
-import React, { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import Product from "@/components/Product";
@@ -13,12 +13,16 @@ import { Input } from "@/components/ui/input";
 import { ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Comment from "@/components/Comment";
+import axios from "axios";
 
 function Shop() {
   const { uniqueUrl }: { uniqueUrl: string } = useParams();
-  const { fetchShop, addComment } = useApp();
+  const { fetchShop, addComment, user } = useApp();
   const [text, setText] = useState('');
   const [isAdding, setIsAdding] = useState(false)
+  const router = useRouter();
+
+
   const { data, isLoading } = useQuery({
     queryKey: ["shop", uniqueUrl],
     queryFn: async () => {
@@ -28,6 +32,25 @@ function Shop() {
     retry: 1,
     staleTime: 1000 * 60 * 2,
   });
+
+  // shop view 
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+      return;
+    };
+
+    if (data?.id) {
+      const addView = async () => {
+        const viewData = { shopId: data?.id }
+        await axios.post("/api/shop/view", viewData);
+      };
+
+      addView();
+    }
+
+
+  }, [user, data?.id])
 
   const handleAddComment = async () => {
     setIsAdding(true)
@@ -125,7 +148,7 @@ function Shop() {
               <div className="py-5 px-5">
                 <div>
                   {data?.comments.map((comment) => (
-                    <Comment key={comment?.id} comment={comment}/>
+                    <Comment key={comment?.id} comment={comment} />
 
                   ))}
                 </div>
