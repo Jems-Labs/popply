@@ -132,7 +132,7 @@ export async function GET(req: Request) {
     };
 
     return NextResponse.json(shop, {status: 200})
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

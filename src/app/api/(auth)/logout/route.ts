@@ -11,10 +11,10 @@ export async function POST() {
       secure: true,
       maxAge: 0,
       path: "/",
-      sameSite: "lax",
+      sameSite: "none",
     });
     return response;
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

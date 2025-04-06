@@ -14,7 +14,7 @@ function Products() {
   const [open, setOpen] = useState(false);
   const { manageshop, fetchProducts, deleteProduct } = useApp();
 
-  const {data: products, isLoading, refetch} = useQuery<productType[]>({
+  const {data: products, refetch} = useQuery<productType[]>({
     queryKey: ['products', manageshop?.id],
     queryFn: async () => {
       if(!manageshop?.id) return [];

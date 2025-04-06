@@ -19,7 +19,7 @@ export async function GET() {
     });
 
     return NextResponse.json({ msg: "Expired shops updated"}, { status: 200 });
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

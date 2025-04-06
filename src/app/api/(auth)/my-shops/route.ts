@@ -30,7 +30,7 @@ export async function GET() {
     });
 
     return NextResponse.json(shops, { status: 200 });
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

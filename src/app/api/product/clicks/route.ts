@@ -33,7 +33,7 @@ export async function PUT(req: Request) {
       { msg: "Clicks incremented successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

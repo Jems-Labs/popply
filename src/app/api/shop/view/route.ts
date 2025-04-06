@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ msg: "Viewed the shop" }, { status: 200 });
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

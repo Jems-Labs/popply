@@ -39,7 +39,7 @@ export async function PUT(req: Request) {
       },
     });
     return NextResponse.json({ msg: "Launched" }, { status: 200 });
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
