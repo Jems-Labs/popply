@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import QueryProvider from "@/components/QueryProvider";
+import Footer from "@/components/Footer";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -31,6 +32,7 @@ export default function RootLayout({
           {children}
         </QueryProvider>
         <Toaster position="top-center" />
+        <Footer />
       </body>
     </html>
   );
