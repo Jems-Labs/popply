@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     );
     const res = generateTokenAndSetCookie(user?.id, response);
     return res;
-  } catch (_) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

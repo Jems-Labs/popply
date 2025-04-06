@@ -27,7 +27,7 @@ export async function GET() {
       },
       { status: 200 }
     );
-  } catch (_) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -68,7 +68,7 @@ export async function PUT(req: Request) {
     });
 
     return NextResponse.json({ msg: "Changed password" }, { status: 200 });
-  } catch (_) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

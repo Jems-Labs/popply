@@ -13,7 +13,7 @@ const useApp = create<useAppType>((set) => ({
       } else {
         set({ user: null });
       }
-    } catch (_) {
+    } catch {
       set({ user: null });
     }
   },
@@ -59,7 +59,7 @@ const useApp = create<useAppType>((set) => ({
         set({ user: null });
         toast.success("Logged Out");
       }
-    } catch (_) {
+    } catch {
       toast.error("Failed to logout");
     }
   },
@@ -70,7 +70,7 @@ const useApp = create<useAppType>((set) => ({
         toast.success("Saved");
         return res.data;
       }
-    } catch (_) {
+    } catch {
       toast.error("Failed to save");
     }
   },
@@ -80,7 +80,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         return res.data || [];
       }
-    } catch (_) {
+    } catch {
       return [];
     }
   },
@@ -90,7 +90,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         set({ manageshop: res.data });
       }
-    } catch (_) {
+    } catch {
       set({ manageshop: null });
     }
   },
@@ -100,7 +100,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         toast.success(res.data.msg);
       }
-    } catch (_) {
+    } catch {
       toast.error("Failed to update shop");
     }
   },
@@ -110,7 +110,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         toast.success("Product Added");
       }
-    } catch (_) {
+    } catch {
       toast.error("Failed to add product");
     }
   },
@@ -120,7 +120,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         return res.data || [];
       }
-    } catch (_) {
+    } catch {
       return [];
     }
   },
@@ -130,7 +130,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         toast.success(res.data.msg);
       }
-    } catch (_) {
+    } catch {
       toast.error("Failed to delete product");
     }
   },
@@ -140,7 +140,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         return res.data || null;
       }
-    } catch (_) {
+    } catch {
       return null;
     }
   },
@@ -150,7 +150,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         toast.success("Commented");
       }
-    } catch (_) {
+    } catch {
       toast.error("Failed to add comment");
     }
   },
@@ -160,7 +160,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         toast.success("Launched");
       }
-    } catch (_) {
+    } catch {
       toast.error("Failed to launch this shop");
     }
   },
@@ -171,7 +171,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         return res.data;
       }
-    } catch (_) {
+    } catch {
       return null;
     }
   },
@@ -181,7 +181,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         return res.data || [];
       }
-    } catch (_) {
+    } catch {
       return [];
     }
   },
@@ -191,7 +191,7 @@ const useApp = create<useAppType>((set) => ({
       if (res.status === 200) {
         toast.success("Upvoted");
       }
-    } catch (_) {
+    } catch {
       toast.error("Failed to upvote");
     }
   },

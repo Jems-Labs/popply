@@ -55,7 +55,7 @@ export async function GET(req: Request) {
     }
 
     return NextResponse.json(shop, { status: 200 });
-  } catch (_) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -101,7 +101,7 @@ export async function PUT(req: Request) {
     });
 
     return NextResponse.json({ msg: "Shop Updated" }, { status: 200 });
-  } catch (_) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }

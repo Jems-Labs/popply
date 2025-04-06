@@ -14,7 +14,7 @@ export async function POST() {
       sameSite: "none",
     });
     return response;
-  } catch (_) {
+  } catch {
     return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
 }
