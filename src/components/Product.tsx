@@ -33,7 +33,7 @@ function Product({ product }: { product: productType }) {
                             try {
                                 await axios.put(`/api/product/clicks?id=${product.id}`)
                                 window.open(product.productUrl, "_blank")
-                            } catch (error) {
+                            } catch {
                                 window.open(product.productUrl, "_blank")
                             }
                         }}

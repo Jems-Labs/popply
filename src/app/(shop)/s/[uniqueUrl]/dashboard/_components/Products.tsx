@@ -34,7 +34,7 @@ function Products() {
       <div className="flex justify-between items-center mb-6">
         <div>
           <p className="font-semibold text-2xl">Products</p>
-          <p className="text-lg text-gray-500">Manage and update your shop&apos;s products</p>
+          <p className="text-lg text-gray-500">Manage and update your shop products</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>

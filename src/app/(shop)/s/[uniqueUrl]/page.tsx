@@ -246,9 +246,6 @@ function Shop() {
             )}
           </div>
         </TabsContent>
-        <TabsContent value="upvotes">
-          <h1>upvotes</h1>
-        </TabsContent>
       </Tabs>
     </div>
   );
