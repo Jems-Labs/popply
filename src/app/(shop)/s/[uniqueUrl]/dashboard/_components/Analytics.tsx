@@ -9,9 +9,8 @@ function Analytics() {
   const { manageshop } = useApp()
   const views = manageshop?.views || []
   const products = manageshop?.products || []
-
+  const upvotes = manageshop?.upvotes || []
   const sortedProducts = [...products].sort((a, b) => b.clicks - a.clicks)
-
   return (
     <div className="p-6 space-y-6">
 
@@ -38,7 +37,7 @@ function Analytics() {
             </h3>
             <ArrowBigUp size={20} className="text-muted-foreground" />
           </div>
-          <div className="text-3xl font-bold">0</div>
+          <div className="text-3xl font-bold">{upvotes?.length}</div>
           <p className="text-xs text-muted-foreground mt-1">
             Total upvotes on your shop
           </p>
@@ -79,6 +78,39 @@ function Analytics() {
                       Viewed on {format(new Date(view.createdAt), "PPP")}
                     </p>
                   </div>
+                </div>
+              </Link>
+            ))
+          )}
+        </div>
+      </div>
+      <div>
+        <h1 className="text-xl font-semibold flex items-center gap-2 mb-4">
+          <ArrowBigUp className="w-5 h-5" />
+          Upvotes ({upvotes.length})
+        </h1>
+
+        <div className="grid gap-4 max-h-[400px] overflow-y-auto pr-2">
+          {upvotes.length === 0 ? (
+            <p className="text-gray-500 text-sm">No upvotes yet.</p>
+          ) : (
+            upvotes.map((upvote) => (
+              <Link href={`/u/${upvote?.id}`} key={upvote.id} className='cursor-pointer'>
+                <div
+                  className="flex items-center justify-between border rounded-xl p-4 shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarFallback>
+                        {upvote.user.name?.charAt(0) || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+
+                    <div>
+                      <p className="font-medium hover:underline">{upvote.user.name}</p>
+                      <p className="text-sm text-gray-500">{upvote.user.email}</p>
+                    </div>
+                  </div>
+
                 </div>
               </Link>
             ))

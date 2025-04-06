@@ -175,5 +175,25 @@ const useApp = create<useAppType>((set) => ({
       return null;
     }
   },
+  fetchOpenShops: async () => {
+    try {
+      const res = await axios.get("/api/shops");
+      if (res.status === 200) {
+        return res.data || [];
+      }
+    } catch (error) {
+      return [];
+    }
+  },
+  upvoteShop: async (shopId) => {
+    try {
+      const res = await axios.post(`/api/shop/upvote?id=${shopId}`);
+      if (res.status === 200) {
+        toast.success("Upvoted");
+      }
+    } catch (error) {
+      toast.error("Failed to upvote");
+    }
+  },
 }));
 export default useApp;

@@ -6,8 +6,8 @@ export type User = {
 
 export type PublicUserType = {
   shops: ShopType[];
-  viewShops: shopViewType[],
-} & User
+  viewShops: shopViewType[];
+} & User;
 export type signupType = {
   name: string;
 } & loginType;
@@ -48,7 +48,13 @@ export type commentType = {
   text: string;
   likes: number;
 };
-
+export type upvoteType = {
+  id: number;
+  shopId: number;
+  shop: ShopType;
+  userId: number;
+  user: User
+}
 export type shopViewType = {
   id: number;
   userId: number;
@@ -73,6 +79,7 @@ export type ShopType = {
   status: string;
   launchDate: Date;
   expiresAt: Date;
+  upvotes: upvoteType[]
 };
 
 export type useAppType = {
@@ -94,4 +101,6 @@ export type useAppType = {
   addComment: (data: { shopId: number | undefined; text: string }) => void;
   launchShop: (id: number | undefined) => void;
   fetchPublicUser: (id: number) => Promise<PublicUserType>;
+  fetchOpenShops: () => Promise<ShopType[]>;
+  upvoteShop: (shopId: number) => void;
 };

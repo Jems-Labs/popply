@@ -42,6 +42,11 @@ export async function GET(req: Request) {
           include: {
             user: true,
           }
+        },
+        upvotes: {
+          include: {
+            user: true
+          }
         }
       },
     });

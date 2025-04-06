@@ -54,7 +54,7 @@ function Shop() {
       <div className="space-y-5">
         <div>
           <Label className="text-lg">Shop Name</Label>
-          <Input name="name" value={formData.name} type="text" onChange={handleChange} />
+          <Input name="name" value={formData.name || ""} type="text" onChange={handleChange} />
         </div>
 
         <div>
@@ -66,7 +66,7 @@ function Shop() {
             <Input
               id="uniqueUrl"
               name="uniqueUrl"
-              value={manageshop?.uniqueUrl}
+              value={manageshop?.uniqueUrl || ""}
               className="rounded-l-none w-80"
               placeholder="my-shop"
               disabled />
@@ -75,12 +75,12 @@ function Shop() {
 
         <div>
           <Label className="text-lg">Shop Description</Label>
-          <Textarea name="description" value={formData.description} onChange={handleChange} />
+          <Textarea name="description" value={formData.description || ""} onChange={handleChange} />
         </div>
 
         <div>
           <Label className="text-lg">Shop Category</Label>
-          <Select value={formData.category} onValueChange={handleCategoryChange}>
+          <Select value={formData.category || ""} onValueChange={handleCategoryChange}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select a category" />
             </SelectTrigger>
