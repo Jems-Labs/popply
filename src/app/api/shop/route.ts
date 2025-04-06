@@ -40,14 +40,14 @@ export async function POST(req: Request) {
       bannerUrl = null;
     if (logo) {
       logoUrl = await uploadToCloudinary(logo, "popply/shop/logos").catch(
-        (err) => {
+        () => {
           return null;
         }
       );
     }
     if (banner) {
       bannerUrl = await uploadToCloudinary(banner, "popply/shop/banners").catch(
-        (err) => {
+        () => {
           return null;
         }
       );

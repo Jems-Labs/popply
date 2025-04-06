@@ -33,7 +33,7 @@ export async function deleteFromCloudinary(publicId: string): Promise<boolean> {
   try {
     const result = await cloudinary.uploader.destroy(publicId);
     return result.result === "ok";
-  } catch (error) {
+  } catch {
     return false;
   }
 }
