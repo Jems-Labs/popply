@@ -4,7 +4,7 @@ import DashboardSidebar from './_components/DashboardSidebar';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ExternalLink, Link2, Trash } from 'lucide-react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Analytics from './_components/Analytics';
 import Products from './_components/Products';
 import Shop from './_components/Shop';
@@ -14,6 +14,7 @@ function DashboardPage() {
     const { uniqueUrl }: { uniqueUrl: string } = useParams();
     const [tab, setTab] = useState("analytics");
     const { fetchManageShop, user, launchShop, manageshop } = useApp();
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const renderComponent = () => {
         switch (tab) {
@@ -29,9 +30,19 @@ function DashboardPage() {
     };
 
 
+
     useEffect(() => {
-        fetchManageShop(uniqueUrl)
-    }, [fetchManageShop, user]);
+        if (!user) {
+            router.push("/login")
+        };
+        fetchManageShop(uniqueUrl);
+    }, [user, fetchManageShop, uniqueUrl]);
+
+    useEffect(() => {
+        if (manageshop && user && manageshop.ownerId !== user.id) {
+            router.push('/pop-mart');
+        }
+    }, [manageshop, user, router]);
 
     const handleLaunchShop = async () => {
         setIsLoading(true);

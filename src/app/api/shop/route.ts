@@ -120,9 +120,12 @@ export async function GET(req: Request) {
             shop: true,
             user: true
           }
-        }
+        },
+        views: true,
+        upvotes: true
+
       },
-    });
+    }); 
 
     if(!shop){
       return NextResponse.json({msg: "No shop found"}, {status: 404})

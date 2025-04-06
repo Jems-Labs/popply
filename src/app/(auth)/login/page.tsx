@@ -24,7 +24,7 @@ function Login() {
 
   useEffect(() => {
     if (user) {
-      router.push("/")
+      router.push("/pop-mart")
     }
   }, [user]);
   return (

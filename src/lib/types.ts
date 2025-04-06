@@ -102,5 +102,5 @@ export type useAppType = {
   launchShop: (id: number | undefined) => void;
   fetchPublicUser: (id: number) => Promise<PublicUserType>;
   fetchOpenShops: () => Promise<ShopType[]>;
-  upvoteShop: (shopId: number) => void;
+  upvoteShop: (shopId: number| undefined) => void;
 };

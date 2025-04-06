@@ -7,6 +7,7 @@ import {
 import Link from "next/link";
 import { LogOut, Store, UserRound, ChevronsUpDown } from "lucide-react";
 import useApp from "@/stores/useApp";
+import { Separator } from "./ui/separator";
 
 
 
@@ -35,8 +36,8 @@ function ProfilePopover({ name }: { name: string }) {
                         <Store className="w-5 h-5" />
                         My Shops
                     </Link>
-
-                    <li className="px-4 py-3 border-t hover:bg-[#303030] transition rounded-md">
+                    <Separator />
+                    <li className="px-4 py-3 hover:bg-[#303030] transition rounded-md">
                         <button className="text-base flex items-center gap-4 border-none" onClick={() => logout()}>
                             <LogOut className="w-5 h-5" />
                             Logout

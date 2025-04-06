@@ -18,7 +18,13 @@ function Product({ product }: { product: productType }) {
             </CardHeader>
             <CardContent className="p-4 space-y-2">
                 <CardTitle className="text-lg font-semibold">{product.name}</CardTitle>
-                <p className="text-gray-500 text-sm">{product.description}</p>
+                <p className="text-sm text-muted-foreground">
+                      {product.description.split(" ").length > 5
+                        ? product.description.split(" ").slice(0, 5).join(" ") +
+                        "..."
+                        : product.description}
+                    </p>
+
                 <div className="flex justify-between items-center">
                     <span className="font-bold text-lg">₹{product.price}</span>
                     <Button

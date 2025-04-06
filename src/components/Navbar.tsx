@@ -5,7 +5,6 @@ import Link from "next/link";
 
 import ProfilePopover from "./ProfilePopover";
 import {
-  House,
   Rocket,
   Plus,
 } from "lucide-react";
@@ -26,17 +25,10 @@ function Navbar() {
       </div>
       <div>
         <ul className="flex items-center gap-4">
-          <Link
-            href="/home"
-            className="px-5 py-3 text-[15px] flex items-center gap-3"
-          >
-            <House className="w-5 h-5" />
-            <span>Home</span>
-          </Link>
+
           <Link
             href="/pop-mart"
-            className="px-5 py-3 text-[15px] flex items-center gap-3"
-          >
+            className="px-5 py-3 text-[15px] flex items-center gap-3">
             <Rocket className="w-5 h-5" />
             <span>Pop Mart</span>
           </Link>
