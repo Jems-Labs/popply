@@ -9,10 +9,10 @@ export async function generateTokenAndSetCookie(
   const token = jwt.sign({ id }, SECRET_KEY);
   response.cookies.set("token", token, {
     httpOnly: true,
-    secure: true,
-    maxAge: 60 * 60 * 24 * 7,
-    path: "/",
-    sameSite: "none",
+  secure: process.env.NODE_ENV === "production",  // secure only in prod
+  maxAge: 60 * 60 * 24 * 7,
+  path: "/",
+  sameSite: "lax",
   });
   return response;
 }
