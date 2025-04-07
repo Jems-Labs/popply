@@ -133,7 +133,7 @@ function Newshop() {
                         <Label htmlFor="uniqueUrl" className="text-lg">Shop URL</Label>
                         <div className="flex items-center">
                             <span className="bg-muted px-3 py-2 rounded-l-md text-muted-foreground border border-r-0 border-input">
-                                localhost:3000/s/
+                                popply.netlify.app/s/
                             </span>
                             <Input id="uniqueUrl" name="uniqueUrl" value={formData.uniqueUrl} onChange={handleChange} className="rounded-l-none w-80" placeholder="my-shop" required />
                         </div>

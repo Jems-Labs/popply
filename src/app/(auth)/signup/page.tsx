@@ -67,7 +67,7 @@ function Signup() {
         </Button>
       </form>
       <p className="text-center text-sm text-gray-400 mt-4">
-        Already have an account?{" "}
+        Already have an account?
         <Link
           href="/login"
           className="text-blue-500 underline hover:text-blue-700"

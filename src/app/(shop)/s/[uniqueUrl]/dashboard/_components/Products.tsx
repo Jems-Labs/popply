@@ -70,7 +70,7 @@ function Products() {
           ))}
         </TableBody>
       </Table>
-    </div >
+    </div>
   );
 }
 

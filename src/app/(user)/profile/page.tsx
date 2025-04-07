@@ -27,7 +27,7 @@ function Profile() {
       if (res.status === 200) {
         toast.success("Password Changed");
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to change password");
     }
 

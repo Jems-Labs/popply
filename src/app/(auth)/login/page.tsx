@@ -54,7 +54,7 @@ function Login() {
         <Button type="submit" disabled={isLoading}>{isLoading ? "loading...." : "Login"}</Button>
       </form>
       <p className="text-center text-sm text-gray-400 mt-4">
-        Don't have an account?{" "}
+        Don&apos;t have an account?
         <Link
           href="/signup"
           className="text-blue-500 underline hover:text-blue-700"
