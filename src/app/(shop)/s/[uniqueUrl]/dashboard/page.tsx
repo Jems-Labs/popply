@@ -54,7 +54,7 @@ function DashboardPage() {
         try {
             await navigator.clipboard.writeText(`${window.location.origin}/s/${manageshop?.uniqueUrl}`);
             toast.success("Copied Link")
-        } catch (error) {
+        } catch {
             toast.error("Failed to copy link")
         }
     };
