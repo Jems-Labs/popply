@@ -5,7 +5,7 @@ export async function POST() {
     const response = NextResponse.json({ msg: "Logged Out" }, { status: 200 });
     response.cookies.set("token", "", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // secure only in prod
+      secure: true,
       maxAge: 60 * 60 * 24 * 7,
       path: "/",
       sameSite: "lax",
