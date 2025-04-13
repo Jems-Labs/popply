@@ -9,18 +9,17 @@ export async function generateTokenAndSetCookie(
   const token = jwt.sign({ id }, SECRET_KEY);
   response.cookies.set("token", token, {
     httpOnly: true,
-  secure: true,
-  maxAge: 60 * 60 * 24 * 7,
-  path: "/",
-  sameSite: "lax",
+    secure: true,
+    maxAge: 60 * 60 * 24 * 7,
+    path: "/",
+    sameSite: "none",
   });
   return response;
 }
 export const getToken = async () => {
   const token = (await cookies()).get("token")?.value;
-  if (token) {  
+  if (token) {
     const decoded = jwt.verify(token, SECRET_KEY) as { id: number };
     return decoded.id;
   }
 };
-  

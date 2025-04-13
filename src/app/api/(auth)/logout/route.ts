@@ -6,9 +6,9 @@ export async function POST() {
     response.cookies.set("token", "", {
       httpOnly: true,
       secure: true,
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 0,
       path: "/",
-      sameSite: "lax",
+      sameSite: "none",
     });
     return response;
   } catch {
