@@ -11,10 +11,8 @@ import { useEffect } from "react";
 function Navbar() {
   const { fetchUser, user } = useApp();
   useEffect(() => {
-    if (!user) {
-      fetchUser();
-    }
-  }, [user]);
+    fetchUser()
+  }, []);
   return (
     <nav className="w-full fixed top-0 left-0 right-0 px-6 py-2 border-b flex items-center justify-between z-50 bg-dark/50 backdrop-blur-md">
       <Link className="cursor-pointer" href={"/"}>
